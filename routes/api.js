@@ -80,8 +80,10 @@ router.post('/orders', changeAvailability, async (req, res) => {
 
     try {
         await order.save()
+        console.log('order saved')
         res.status(201).json(order)
     } catch(err) { 
+        console.log('order error')
         res.status(400).json({message: err.message})
     }
 })
@@ -102,11 +104,13 @@ async function changeAvailability(req, res, next){
     myRide.slots = newSlots;
     try {
       await myRide.save()
+      console.log('myRide saved')
       next();
-  } catch(err) { 
+    } catch(err) { 
+      console.log('myRide save error')
       res.status(400).json({message: err.message})
-  }
-    next();
+      next();
+    }
   } catch (err) {
     //return ({message: err.message})
     console.log(err.message)
