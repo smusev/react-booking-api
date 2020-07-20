@@ -89,3 +89,51 @@ Content-Type: application/json
     "rideId": "5f05afddafe8981768aa0a43",
     "slots": [{"wagon": 3, "seatNumber": "13", "price": 330},{"wagon": 3, "seatNumber": "14", "price": 330},{"wagon": 3, "seatNumber": "15", "price": 330}]
 }
+
+###
+
+POST https://react-booking-api.herokuapp.com:8000/api/wagon
+Content-Type: application/json
+
+{
+    "name": "Купейный", 
+    "layout": "https://smusev.github.io/react-booking/static/media/carScheme.5212d7e4.png",
+    "slots": [
+      {"name": "1","coords": [31,520,71,538]},
+      {"name": "2","coords": [79,520,119,538]},
+      {"name": "3","coords": [31,494,71,514]},
+      {"name": "4","coords": [79,494,119,514]},
+      {"name": "5","coords": [31,465,71,485]},
+      {"name": "6","coords": [79,465,119,485]},
+      {"name": "7","coords": [31,440,71,460]},
+      {"name": "8","coords": [79,440,119,460] },
+      {"name": "9","coords": [31,411,71,431] },
+      {"name": "10","coords": [79,411,119,431] },
+      {"name": "11","coords": [31,386,71,406] },
+      {"name": "12","coords": [79,386,119,406] },
+      {"name": "13","coords": [31,356,71,376] },
+      {"name": "14","coords": [79,356,119,376] },
+      {"name": "15","coords": [31,332,71,352] },
+      {"name": "16","coords": [79,332,119,352] },
+      {"name": "17","coords": [31,302,71,322] },
+      {"name": "18","coords": [79,302,119,322] },
+      {"name": "19","coords": [31,278,71,298] },
+      {"name": "20","coords": [79,278,119,298] },
+      {"name": "21","coords": [31,249,71,269] },
+      {"name": "22","coords": [79,249,119,269] },
+      {"name": "23","coords": [31,224,71,244] },
+      {"name": "24","coords": [79,224,119,244] },
+      {"name": "25","coords": [31,195,71,215] },
+      {"name": "26","coords": [79,195,119,215] },
+      {"name": "27","coords": [31,170,71,190] },
+      {"name": "28","coords": [79,170,119,190] },
+      {"name": "29","coords": [31,141,71,161] },
+      {"name": "30","coords": [79,141,119,161] },
+      {"name": "31","coords": [31,116,71,136] },
+      {"name": "32","coords": [79,116,119,136] },
+      {"name": "33","coords": [31,87,71,107] },
+      {"name": "34","coords": [79,87,119,107] },
+      {"name": "35","coords": [31,62,71,82] },
+      {"name": "36","coords": [79,62,119,82] }
+    ]
+}
