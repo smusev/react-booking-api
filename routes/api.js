@@ -20,23 +20,18 @@ router.post('/rides', async (req, res) => {
             depart: req.body.depart, 
             arrival: req.body.arrival
         })
-        res.json({rides: rides})
+        if (rides.length <1) { 
+            const newRides = await generateRides(req.body);
+            res.json({rides: newRides})
+        } else 
+            res.json({rides: rides})
     } catch(err) {
         res.status(500).json({message: err.message})
     }
 })
 
-router.post('/ride', getSlots, async (req, res) => {
-    const ride = new Ride({
-        date: req.body.date,
-        depart: req.body.depart,
-        arrival: req.body.arrival,
-        departTime: req.body.departTime,
-        arrivalTime: req.body.arrivalTime,
-        travelTime: req.body.travelTime,
-        carts: req.body.carts,
-        slots: req.slots
-    })
+router.post('/ride', async (req, res) => {
+    const ride = await createRide(req.body)
 
     try {
         const newRide = await ride.save()
@@ -131,16 +126,139 @@ async function getWagon(name) {
     }
 }
 
-async function getSlots (req, res, next) {
+async function getSlots (carts) {
     let slots = []
-    for (const wagon of req.body.carts) {
+    for (const wagon of carts) {
         const wagonScheme = await getWagon(wagon.name)
         wagonScheme.slots.forEach((slot) => {
             slots.push({cartNumber:wagon.number, seatNumber:slot.name, price: wagon.price})
         }) 
     }
-    req.slots = slots
-    next()
+    return slots
+}
+
+async function createRide (body){
+    const slots = await getSlots(body.carts)
+    const ride = new Ride({
+        date: body.date,
+        depart: body.depart,
+        arrival: body.arrival,
+        departTime: body.departTime,
+        arrivalTime: body.arrivalTime,
+        travelTime: body.travelTime,
+        carts: body.carts,
+        slots: slots
+    })
+    return ride
+}
+
+async function generateRides(req) {
+    let newRides = []
+    const travels = 
+    [{
+    departTime: "6:25",
+    arrivalTime: "12:05",
+    travelTime: "5:40",
+    carts:[
+        {number: 1, carType: "Купейный", price: 360},
+        {number: 2, carType: "Купейный", price: 350},
+        {number: 3, carType: "Купейный", price: 340},
+        {number: 4, carType: "Купейный", price: 320},
+        {number: 5, carType: "Купейный", price: 420},
+        {number: 6, carType: "Купейный", price: 450}
+        ]
+    }, {
+    departTime: "7:15",
+    arrivalTime: "13:25",
+    travelTime: "6:10",
+    carts:[
+        {number: 1, carType: "Купейный", price: 360},
+        {number: 2, carType: "Купейный", price: 350},
+        {number: 3, carType: "Купейный", price: 340},
+        {number: 4, carType: "Купейный", price: 320},
+        {number: 5, carType: "Купейный", price: 420},
+        {number: 6, carType: "Купейный", price: 450}
+        ]
+    }, {
+    departTime: "10:55",
+    arrivalTime: "17:05",
+    travelTime: "5:50",
+    carts:[
+        {number: 1, carType: "Купейный", price: 360},
+        {number: 2, carType: "Купейный", price: 350},
+        {number: 3, carType: "Купейный", price: 340},
+        {number: 4, carType: "Купейный", price: 320},
+        {number: 5, carType: "Купейный", price: 420},
+        {number: 6, carType: "Купейный", price: 450}
+        ]
+    },{
+    departTime: "16:10",
+    arrivalTime: "21:35",
+    travelTime: "5:25",
+    carts:[
+        {number: 1, carType: "Купейный", price: 360},
+        {number: 2, carType: "Купейный", price: 350},
+        {number: 3, carType: "Купейный", price: 340},
+        {number: 4, carType: "Купейный", price: 320},
+        {number: 5, carType: "Купейный", price: 420},
+        {number: 6, carType: "Купейный", price: 450}
+        ]
+    },{
+    departTime: "18:00",
+    arrivalTime: "00:45",
+    travelTime: "6:45",
+    carts:[
+        {number: 1, carType: "Купейный", price: 360},
+        {number: 2, carType: "Купейный", price: 350},
+        {number: 3, carType: "Купейный", price: 340},
+        {number: 4, carType: "Купейный", price: 320},
+        {number: 5, carType: "Купейный", price: 420},
+        {number: 6, carType: "Купейный", price: 450}
+        ]
+    }]
+
+    for (const travel of travels) {
+        let ride = await createRide({
+            date: req.date,
+            depart: req.depart,
+            arrival: req.arrival,
+            departTime: travel.departTime,
+            arrivalTime: travel.arrivalTime,
+            travelTime: travel.travelTime,
+            carts: travel.carts,
+        })
+
+        try {
+            await ride.save()
+            newRides.push(ride)
+        } catch(err) { 
+            res.status(400).json({message: err.message})
+        }
+    }
+    
+    return newRides
+    
+/*
+    {
+        date: body.date,
+        depart: body.depart,
+        arrival: body.arrival,
+        departTime: body.departTime,
+        arrivalTime: body.arrivalTime,
+        travelTime: body.travelTime,
+        carts: body.carts,
+    }
+    let wagon
+    try {
+        wagon = await Wagon.findOne(name)
+        if (wagon == null) 
+            return ({message: 'wagon not found'})
+        else 
+        return wagon
+    } catch(err) {
+        return ({message: err.message})
+    }
+*/
 }
 
 module.exports = router

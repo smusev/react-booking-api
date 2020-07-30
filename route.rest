@@ -163,12 +163,12 @@ Content-Type: application/json
 
 ###
 
-post https://react-booking-api.herokuapp.com:8000/api/orders
+post https://react-booking-api.herokuapp.com/api/orders
 Content-Type: application/json
 
 {
     "rideId": "5f14ebf2d1d554001719b041",
-    "slots": [{"wagon": 2, "seatNumber": "5", "price": 330}]
+    "slots": [{"wagon": 2, "seatNumber": "6", "price": 330}]
 }
 
 ###
