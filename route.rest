@@ -49,17 +49,17 @@ POST http://localhost:8000/api/ride
 Content-Type: application/json
 
 {
-    "date": "2020-07-30T18:15:00.000Z",
+    "date": "2020-08-04T18:15:00.000Z",
     "depart": "Харків",
     "arrival": "Київ",
     "departTime": "18:15",
     "arrivalTime": "00:05",
     "travelTime":"5:50",
     "carts":[
-        {"number": "1", "carType": "Купейный", "price": "340"},
-        {"number": "2", "carType": "Купейный", "price": "330"},
-        {"number": "3", "carType": "Купейный", "price": "350"},
-        {"number": "4", "carType": "Купейный", "price": "319"}
+        {"number": "1", "carType": "Купейный", "price": "360"},
+        {"number": "2", "carType": "Купейный", "price": "350"},
+        {"number": "3", "carType": "Купейный", "price": "340"},
+        {"number": "4", "carType": "Купейный", "price": "320"}
     ]
 }
 
@@ -68,7 +68,7 @@ post http://localhost:8000/api/rides
 Content-Type: application/json
 
 {
-    "date": "2020-07-21T09:00:00.000Z", 
+    "date": "2020-07-26T09:00:00.000Z", 
     "depart": "Харків", 
     "arrival": "Київ"
 }
@@ -168,7 +168,7 @@ Content-Type: application/json
 
 {
     "rideId": "5f14ebf2d1d554001719b041",
-    "slots": [{"wagon": 2, "seatNumber": "6", "price": 330}]
+    "slots": [{"wagon": 2, "seatNumber": "8", "price": 330}]
 }
 
 ###

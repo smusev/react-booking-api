@@ -16,15 +16,12 @@ router.use(function(req, res, next) {
 router.post('/rides', async (req, res) => {
     try {
         const rides = await Ride.find({
-            date: {$gt: req.body.date, $lt: new Date(req.body.date).getTime() + 86400000 },
+            date: {$gte: req.body.date, $lt: new Date(req.body.date).getTime() + 86400000},
             depart: req.body.depart, 
             arrival: req.body.arrival
         })
-        if (rides.length <1) { 
-            const newRides = await generateRides(req.body);
-            res.json({rides: newRides})
-        } else 
-            res.json({rides: rides})
+        res.json( (rides.length <1) ?  {rides: await generateRides(req.body) } : {rides: rides})
+        //res.json( {rides: rides})
     } catch(err) {
         res.status(500).json({message: err.message})
     }
@@ -235,7 +232,7 @@ async function generateRides(req) {
             res.status(400).json({message: err.message})
         }
     }
-    
+    console.log('new data generated')
     return newRides
     
 /*
